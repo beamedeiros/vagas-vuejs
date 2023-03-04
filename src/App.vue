@@ -2,11 +2,11 @@
   <div>
     <VagasFavoritas />
     <Topo @navegar="componente = $event" />
-    <AlertaComum v-if="exibirAlerta">
+    <AlertaComum v-if="exibirAlerta" :tipo="alerta.tipo">
       <template v-slot:titulo>
-        <h5>Título do alerta</h5>
+        <h5>{{ alerta.titulo }}</h5>
       </template>
-      <p>Descrição</p>
+      <p>{{ alerta.descricao }}</p>
     </AlertaComum>
     <Conteudo :conteudo="componente" />
   </div>
@@ -29,12 +29,13 @@ export default {
   data: () => ({
     componente: 'HomePage',
     exibirAlerta: false,
+    alerta: {titulo: '', descricao: '', tipo:''}
   }),
   mounted() {
-    this.emitter.on('alerta', () => {
+    this.emitter.on('alerta', (a) => {
+      this.alerta = a
       this.exibirAlerta = true
       setTimeout(() => this.exibirAlerta = false, 4000)
-      console.log('Apresentar alerta')
     })
   }
 }

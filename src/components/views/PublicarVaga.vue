@@ -83,17 +83,44 @@ export default {
                 tipo: this.tipo,
                 publicacao: dataAtual.toISOString
             })
-            //localStorage.setItem('vagas', JSON.stringify(vagas))
-            this.emitter.emit('alerta')
-            this.resetaForm()
+
+            if (this.validaForm()) {
+                localStorage.setItem('vagas', JSON.stringify(vagas))
+                this.emitter.emit('alerta', {
+                    tipo: 'sucesso',
+                    titulo: `A vaga ${this.titulo} foi cadastrada com sucesso!`,
+                    descricao: 'Parabéns, a vaga foi cadastrada e poderá ser consultada por milhares de profissionais em nossa plataforma.'
+                })
+                this.resetaForm()
+            } else {
+                this.emitter.emit('alerta', {
+                    tipo: 'erro',
+                    titulo: `Não foi possível cadastrar a vaga :(`,
+                    descricao: 'Certifique-se de que todos os campos foram preenchidos'
+                })
+            }
+
+            
         },
         resetaForm() {
             this.titulo = null,
-            this.descricao = null,
-            this.salario = null,
-            this.modalidade = null,
-            this.tipo = null,
-            this.publicacao = null
+                this.descricao = null,
+                this.salario = null,
+                this.modalidade = null,
+                this.tipo = null,
+                this.publicacao = null
+        },
+        validaForm() {
+            let valido = true
+
+            if (this.titulo == null) valido = false
+            if (this.descricao == null) valido = false
+            if (this.salario == null) valido = false
+            if (this.modalidade == null) valido = false
+            if (this.tipo == null) valido = false
+            if (this.titulo == null) valido = false
+
+            return valido
         }
     }
 }
