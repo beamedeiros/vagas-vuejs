@@ -49,7 +49,6 @@
         </div>
     </div>
     <div class="row mt-3">
-        {{ titulo }} | {{ descricao }} | {{ salario }} | {{ modalidade }} | {{ tipo }}
         <div class="col">
             <button type="submit" class="btn btn-primary" @click="salvarVaga()">Cadastrar</button>
         </div>
@@ -74,7 +73,7 @@ export default {
 
             let vagas = JSON.parse(localStorage.getItem('vagas'))
 
-            if(!vagas) vagas = []
+            if (!vagas) vagas = []
 
             vagas.push({
                 titulo: this.titulo,
@@ -85,6 +84,16 @@ export default {
                 publicacao: dataAtual.toISOString
             })
             localStorage.setItem('vagas', JSON.stringify(vagas))
+
+            this.resetaForm()
+        },
+        resetaForm() {
+            this.titulo = null,
+            this.descricao = null,
+            this.salario = null,
+            this.modalidade = null,
+            this.tipo = null,
+            this.publicacao = null
         }
     }
 }
