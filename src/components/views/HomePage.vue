@@ -37,9 +37,7 @@ export default {
     components: { PesquisarVaga, IndicadorComum, VagaComum },
     data: () => ({
         usuariosOnline: 0,
-        vagas: [
-
-        ]
+        vagas: []
     }),
     methods: {
         getUsuariosOnline() {
@@ -51,6 +49,12 @@ export default {
     },
     activated() {
         this.vagas = JSON.parse(localStorage.getItem('vagas'))
+    },
+    mounted() {
+        this.emitter.on('filtrarVagas', vaga => {
+            const vagas = JSON.parse(localStorage.getItem('vagas'))
+            this.vagas  = vagas.filter(reg => reg.titulo.toLowerCase().includes(vaga.titulo.toLowerCase())) //true ou false: O método filter cria um novo array com todos os elementos que passaram no teste
+        })
     }
 }
 </script>
