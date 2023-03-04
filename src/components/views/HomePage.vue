@@ -6,11 +6,34 @@
             </div>
         </div>
 
-        <div class="row mt-5" v-for="(vaga, index) in vagas" :key="index">
-            <div class="col">
-                <VagaComum v-bind="vaga" />
+        <!-- Template customizado ex1
+        <ListaVagas v-slot:default="slotProps">
+            <div v-for="(vaga, index) in slotProps.vagas" :key="index">
+                <h4>{{ vaga.titulo }}</h4>
+                <p>{{ vaga.descricao }}</p>
             </div>
-        </div>
+        </ListaVagas> -->
+
+        <!-- Template customizado ex2
+        <ListaVagas>
+            <template v-slot:titulo="slotProps">
+                {{ slotProps.dadosTitulo.titulo }}
+                <hr>
+            </template>
+            
+            <template v-slot:default="slotProps">
+                {{ slotProps.vagas }}
+                <hr>
+            </template>
+            
+            <template v-slot:rodape="slotProps">
+                {{ slotProps.dadosRodape.rodape }}
+                {{ slotProps.dadosRodape.paginacao }}
+            </template>
+        </ListaVagas> -->
+        
+        <!-- Template padrão -->
+        <ListaVagas/>
         <div class="row mt-5">
             <div class="col-4">
                 <indicador-comum titulo="Vagas abertas" indicador="100" bg="bg-dark" color="text-white"></indicador-comum>
@@ -29,15 +52,14 @@
   
 <script>
 import IndicadorComum from '../comuns/Indicador.vue';
+import ListaVagas from '../comuns/ListaVagas.vue';
 import PesquisarVaga from '../comuns/PesquisarVaga.vue'
-import VagaComum from '../comuns/Vaga.vue';
 
 export default {
     name: "HomePage",
-    components: { PesquisarVaga, IndicadorComum, VagaComum },
+    components: { PesquisarVaga, IndicadorComum, ListaVagas },
     data: () => ({
         usuariosOnline: 0,
-        vagas: []
     }),
     methods: {
         getUsuariosOnline() {
@@ -47,15 +69,6 @@ export default {
     created() {
         setInterval(this.getUsuariosOnline, 1000) //a cada 1s
     },
-    activated() {
-        this.vagas = JSON.parse(localStorage.getItem('vagas'))
-    },
-    mounted() {
-        this.emitter.on('filtrarVagas', vaga => {
-            const vagas = JSON.parse(localStorage.getItem('vagas'))
-            this.vagas  = vagas.filter(reg => reg.titulo.toLowerCase().includes(vaga.titulo.toLowerCase())) //true ou false: O método filter cria um novo array com todos os elementos que passaram no teste
-        })
-    }
 }
 </script>
   
