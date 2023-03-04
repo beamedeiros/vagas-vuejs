@@ -4,6 +4,9 @@
         <hr>
 
         <slot name="descricao"></slot>
+        <hr>
+        
+        <slot></slot>
       </div>
 </template>
 

@@ -3,12 +3,22 @@
     <VagasFavoritas />
     <Topo @navegar="componente = $event" />
     <AlertaComum v-if="exibirAlerta">
+      <h3>Teste 1: Slot Padrão</h3>
       <template v-slot:titulo>
         <h5>Título do alerta</h5>
       </template>
+      <div>
+        <p><strong>Teste 2: Slot Padrão</strong></p>
+      </div>
       <template v-slot:descricao>
         <p>Desrição</p>
       </template>
+      <ul>
+        <li>Teste 3: Slot Padrão</li>
+        <li>Teste 3: Slot Padrão</li>
+        <li>Teste 3: Slot Padrão</li>
+        <li>Teste 3: Slot Padrão</li>
+      </ul>
     </AlertaComum>
     <Conteudo :conteudo="componente" />
   </div>
