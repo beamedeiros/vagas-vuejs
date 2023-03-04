@@ -2,7 +2,14 @@
   <div>
     <VagasFavoritas />
     <Topo @navegar="componente = $event" />
-    <AlertaComum v-if="exibirAlerta"/>
+    <AlertaComum v-if="exibirAlerta">
+      <template v-slot:titulo>
+        <h5>Título do alerta</h5>
+      </template>
+      <template v-slot:descricao>
+        <p>Desrição</p>
+      </template>
+    </AlertaComum>
     <Conteudo :conteudo="componente" />
   </div>
 </template>

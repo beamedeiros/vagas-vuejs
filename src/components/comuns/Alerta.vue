@@ -1,11 +1,14 @@
 <template>
-<div class="alert alert-success" role="alert">
-  Aqui ficará a mensagem de alerta (feedback)
-</div>
+    <div class="alert alert-success" role="alert">
+        <slot name="titulo"></slot>
+        <hr>
+
+        <slot name="descricao"></slot>
+      </div>
 </template>
 
 <script>
-    export default{
-        name: 'AlertaComum'
-    }
+export default {
+    name: 'AlertaComum'
+}
 </script>
