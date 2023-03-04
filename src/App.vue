@@ -1,10 +1,14 @@
 <template>
-  <VagasFavoritas/>
-  <Topo @navegar="componente= $event"/>
-  <Conteudo :conteudo="componente" />
+  <div>
+    <VagasFavoritas />
+    <Topo @navegar="componente = $event" />
+    <AlertaComum v-if="exibirAlerta"/>
+    <Conteudo :conteudo="componente" />
+  </div>
 </template>
 
 <script>
+import AlertaComum from './components/comuns/Alerta.vue';
 import VagasFavoritas from './components/comuns/VagasFavoritas.vue';
 import Conteudo from './components/layouts/Conteudo.vue';
 import Topo from './components/layouts/Topo.vue';
@@ -14,11 +18,20 @@ export default {
   components: {
     Topo,
     Conteudo,
-    VagasFavoritas
-},
+    VagasFavoritas,
+    AlertaComum
+  },
   data: () => ({
-    componente: 'HomePage'
+    componente: 'HomePage',
+    exibirAlerta: false,
   }),
+  mounted() {
+    this.emitter.on('alerta', () => {
+      this.exibirAlerta = true
+      setTimeout(() => this.exibirAlerta = false, 4000)
+      console.log('Apresentar alerta')
+    })
+  }
 }
 </script>
 

@@ -28,9 +28,9 @@
 </template>
   
 <script>
-import IndicadorComum from '../comuns/IndicadorComum.vue';
+import IndicadorComum from '../comuns/Indicador.vue';
 import PesquisarVaga from '../comuns/PesquisarVaga.vue'
-import VagaComum from '../comuns/VagaComum.vue';
+import VagaComum from '../comuns/Vaga.vue';
 
 export default {
     name: "HomePage",
